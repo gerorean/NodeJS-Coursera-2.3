@@ -1,35 +1,27 @@
-//2.3.2
+//2.3.2 -2.3.3
 //Modules
 const assert = require('assert');
-//Exports
+//Exports insert
 exports.insertDocument = (db, document, collection, callback) => {
     const coll = db.collection(collection);
-    coll.insert(document, (err, result) => {
-        assert.equal(err, null);
-        console.log("Inserted " + result.result.n + " documents into the collection " + collection);
-        callback(result);
-    });
+    //Insert promise
+    return coll.insert(document);
 };
+//Exports find
 exports.findDocuments = (db, collection, callback) => {
-   const coll = db.collection(collection);
-   coll.find({}).toArray((err, docs) => {
-       assert.equal(err, null);
-       callback(docs);       
-   });
+    const coll = db.collection(collection);
+    //Find promise
+    return coll.find({}).toArray();
 };
+//Exports remove
 exports.removeDocument = (db, document, collection, callback) => {
-   const coll = db.collection(collection);
-   coll.deleteOne(document, (err, result) => {
-       assert.equal(err, null);
-       console.log("Removed the document ", document);
-       callback(result);       
-   });
+    const coll = db.collection(collection);
+    //Delete promise
+    return coll.deleteOne(document);
 };
+//Exports update
 exports.updateDocument = (db, document, update, collection, callback) => {
-   const coll = db.collection(collection);
-   coll.updateOne(document, { $set: update }, null, (err, result) => {
-       assert.equal(err, null);
-       console.log("Updated the document with ", update);
-       callback(result);       
-   });
+    const coll = db.collection(collection);
+    //UPdate promise
+    return coll.updateOne(document, { $set: update }, null);
 };
